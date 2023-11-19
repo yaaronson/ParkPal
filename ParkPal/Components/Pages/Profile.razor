@@ -1,0 +1,136 @@
+﻿@page "/Profile"
+
+<h3><b>Profile</b></h3>
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile Form</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+            .profile-form-container:hover {
+                box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+            }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        textarea,
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+            input[type="text"]:focus,
+            input[type="email"]:focus,
+            input[type="tel"]:focus,
+            input[type="date"]:focus,
+            textarea:focus,
+            button[type="submit"]:focus {
+                outline: none;
+                border-color: #5b72ff;
+                box-shadow: 0px 0px 5px 0px rgba(91, 114, 255, 0.5);
+            }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #5b72ff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+            button[type="submit"]:hover {
+                background-color: #4255cc;
+                transform: scale(1.05);
+            }
+
+            button[type="submit"]:focus {
+                outline: none;
+                box-shadow: 0px 0px 5px 0px rgba(91, 114, 255, 0.5);
+            }
+    </style>
+</head>
+<body>
+    <div class="profile-form-container">
+        <h1>User Profile Information</h1>
+        <form class="profile-form">
+            <div class="input-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+            </div>
+            <div class="input-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+            </div>
+            <div class="input-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" placeholder="Enter your address">
+            </div>
+            <div class="input-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob">
+            </div>
+            <div class="input-group">
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" placeholder="Write a short bio about yourself"></textarea>
+            </div>
+            <button type="submit">Save Profile</button>
+        </form>
+    </div>
+</body>
+
+
+
+
+@code {
+
+}
