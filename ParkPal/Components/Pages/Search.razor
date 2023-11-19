@@ -1,0 +1,355 @@
+﻿@page "/Search"
+
+
+<h3><b>Search</b></h3>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EXPLORE - Search & Book Listings</title>
+    <style>
+        /* Reset styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+            .search-bar input[type="text"] {
+                width: 70%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                margin-right: 10px;
+            }
+
+            .search-bar button {
+                border: none;
+                background-color: #5b72ff;
+                color: #fff;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+        /* Main content styles */
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 25%;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .filters-form {
+            /* Additional styles for the filters form */
+        }
+
+            .filters-form .input-group {
+                margin-bottom: 15px;
+            }
+
+            .filters-form label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .filters-form select,
+            .filters-form input[type="range"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+                transition: border-color 0.3s ease;
+            }
+
+                .filters-form select:focus,
+                .filters-form input[type="range"]:focus {
+                    outline: none;
+                    border-color: #5b72ff;
+                    box-shadow: 0px 0px 5px 0px rgba(91, 114, 255, 0.5);
+                }
+
+        .explore-btn {
+            background-color: #5b72ff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+            .explore-btn:hover {
+                background-color: #4255cc;
+                transform: scale(1.05);
+            }
+
+        .listings-feed {
+            width: 70%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .listing {
+            width: calc(50% - 10px);
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            .listing h3 {
+                margin-top: 0;
+            }
+
+            .listing p {
+                margin-bottom: 10px;
+            }
+
+        .book-now-btn {
+            background-color: #5b72ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .book-now-btn:hover {
+                background-color: #4255cc;
+            }
+
+        /* Footer styles */
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .post-listing-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background-color: #5b72ff;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+            .post-listing-btn:hover {
+                background-color: #4255cc;
+            }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button><img src="search-icon.png" alt="Search"></button>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <aside class="sidebar">
+            <h3>Filter Options</h3>
+            <form class="filters-form">
+                <div class="input-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="Enter location">
+                </div>
+                <div class="input-group">
+                    <label for="dates">Dates:</label>
+                    <input type="date" id="dates" name="dates">
+                </div>
+                <div class="input-group">
+                    <label for="size">Size:</label>
+                    <select id="size" name="size">
+                        <option value="compact">Compact</option>
+                        <option value="regular">Regular</option>
+                        <option value="suv">SUV</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="price-range">Price Range:</label>
+                    <input type="range" id="price-range" name="price-range" min="10" max="100" step="5">
+                </div>
+                <button class="explore-btn">Explore</button>
+            </form>
+        </aside>
+
+        <section class="listings-feed">
+            <div class="listing">
+                <h3>Listing Title 1</h3>
+                <p>Description of the first listing.</p>
+                <ul>
+                    <li>Location: City 1</li>
+                    <li>Price: $30/day</li>
+                    <li>Size: Compact car</li>
+                    <li>Dates Available: Feb 23 - Feb 28</li>
+                </ul>
+                <button class="book-now-btn">Book Now</button>
+            </div>
+            <div class="listing">
+                <h3>Listing Title 2</h3>
+                <p>Description of the second listing.</p>
+                <ul>
+                    <li>Location: City 2</li>
+                    <li>Price: $40/day</li>
+                    <li>Size: Sedan</li>
+                    <li>Dates Available: Mar 1 - Mar 5</li>
+                </ul>
+                <button class="book-now-btn">Book Now</button>
+            </div>
+           
+            <div class="listing">
+                <h3>Listing Title 3</h3>
+                <p>Description of the third listing.</p>
+                <ul>
+                    <li>Location: City 3</li>
+                    <li>Price: $50/day</li>
+                    <li>Size: SUV</li>
+                    <li>Dates Available: Feb 20 - Feb 25</li>
+                </ul>
+                <button class="book-now-btn">Book Now</button>
+            </div>
+
+            <div class="listing">
+                <h3>Beachfront Parking</h3>
+                <p>Parking space near the beach with easy access.</p>
+                <ul>
+                    <li>Location: Miami Beach</li>
+                    <li>Price: $60/day</li>
+                    <li>Size: Van</li>
+                    <li>Dates Available: Mar 10 - Mar 15</li>
+                </ul>
+                <button class="book-now-btn">Book Now</button>
+            </div>
+
+            <div class="listing">
+                <h3>Mountain View Parking</h3>
+                <p>Parking spot with a scenic mountain view.</p>
+                <ul>
+                    <li>Location: Denver</li>
+                    <li>Price: $45/day</li>
+                    <li>Size: SUV</li>
+                    <li>Dates Available: Apr 5 - Apr 10</li>
+                </ul>
+                <button class="book-now-btn">Book Now</button>
+            </div>
+
+            <div class="listing">
+                <h3>Luxury Garage Parking</h3>
+                <p>Premium parking in a secure and upscale garage.</p>
+                <ul>
+                    <li>Location: Los Angeles</li>
+                    <li>Price: $80/day</li>
+                    <li>Size: Sports car</li>
+                    <li>Dates Available: May 1 - May 7</li>
+                </ul>
+                <button class="book-now-btn">Book Now</button>
+            </div>
+
+            <div class="listing">
+                <h3>Suburban Street Parking</h3>
+                <p>Safe parking spot in a quiet suburban area.</p>
+                <ul>
+                    <li>Location: Austin</li>
+                    <li>Price: $20/day</li>
+                    <li>Size: Regular car</li>
+                    <li>Dates Available: Mar 20 - Mar 25</li>
+                </ul>
+                <button class="book-now-btn">Book Now</button>
+            </div>
+
+            <div class="listing">
+                <h3>Downtown Valet Parking</h3>
+                <p>Valet service available for convenient downtown parking.</p>
+                <ul>
+                    <li>Location: Chicago</li>
+                    <li>Price: $70/day</li>
+                    <li>Size: Luxury car</li>
+                    <li>Dates Available: Apr 15 - Apr 20</li>
+                </ul>
+                <button class="book-now-btn">Book Now</button>
+            </div>
+
+            <div class="listing">
+                <h3>Rooftop Parking</h3>
+                <p>Parking space on a building's rooftop.</p>
+                <ul>
+                    <li>Location: San Francisco</li>
+                    <li>Price: $55/day</li>
+                    <li>Size: SUV</li>
+                    <li>Dates Available: Mar 30 - Apr 5</li>
+                </ul>
+                <button class="book-now-btn">Book Now</button>
+            </div>
+
+            <div class="listing">
+                <h3>City Center Parking Garage</h3>
+                <p>Secure parking in the heart of the city.</p>
+                <ul>
+                    <li>Location: New York City</li>
+                    <li>Price: $75/day</li>
+                    <li>Size: Truck</li>
+                    <li>Dates Available: May 5 - May 10</li>
+                </ul>
+                <button class="book-now-btn">Book Now</button>
+            </div>
+
+           
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <button class="post-listing-btn">+</button>
+    </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+@code {
+
+}
