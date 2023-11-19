@@ -338,6 +338,18 @@
     <footer class="footer">
         <button class="post-listing-btn">+</button>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            var button = document.querySelector('.post-listing-btn');
+
+            button.addEventListener('click', function () {
+               
+                window.location.href = 'https://localhost:7279/createlisting';
+            });
+        });
+    </script>
 </body>
 </html>
 
