@@ -1,16 +1,11 @@
 ﻿@page "/Search"
 
 
-<h3><b>Search</b></h3>
-
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>EXPLORE - Search & Book Listings</title>
     <style>
-        /* Reset styles */
+     
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -21,6 +16,7 @@
 
         /* Header styles */
         .header {
+            margin-top: 0;
             background-color: #ffffff;
             padding: 20px;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -53,10 +49,12 @@
             display: flex;
             justify-content: space-between;
             padding: 20px;
+            margin: 0;
         }
 
         .sidebar {
             width: 25%;
+            margin: 0;
             padding: 20px;
             background-color: #ffffff;
             border-radius: 10px;
@@ -64,8 +62,10 @@
             margin-bottom: 20px;
         }
 
+
         .filters-form {
-            /* Additional styles for the filters form */
+            display: flex;
+            flex-direction: column;
         }
 
             .filters-form .input-group {
@@ -78,21 +78,17 @@
             }
 
             .filters-form select,
-            .filters-form input[type="range"] {
-                width: 100%;
+            .filters-form input[type="range"],
+            .filters-form input[type="text"],
+            .filters-form input[type="date"] {
+                width: calc(100% - 40px);
                 padding: 10px;
                 border: 1px solid #ccc;
                 border-radius: 5px;
                 box-sizing: border-box;
                 transition: border-color 0.3s ease;
+                margin-bottom: 10px;
             }
-
-                .filters-form select:focus,
-                .filters-form input[type="range"]:focus {
-                    outline: none;
-                    border-color: #5b72ff;
-                    box-shadow: 0px 0px 5px 0px rgba(91, 114, 255, 0.5);
-                }
 
         .explore-btn {
             background-color: #5b72ff;
@@ -117,6 +113,27 @@
             gap: 20px;
         }
 
+        .book-now-btn,
+        .message-btn {
+            background-color: #5b72ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px; /* Adjusted padding */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .book-now-btn:hover,
+            .message-btn:hover {
+                background-color: #4255cc;
+            }
+
+        .message-btn {
+            background-color: #5bc0de; /* Light blue */
+            font-size: 16px; /* Updated font size for consistency */
+        }
+
         .listing {
             width: calc(50% - 10px);
             padding: 20px;
@@ -131,20 +148,6 @@
 
             .listing p {
                 margin-bottom: 10px;
-            }
-
-        .book-now-btn {
-            background-color: #5b72ff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 15px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-            .book-now-btn:hover {
-                background-color: #4255cc;
             }
 
         /* Footer styles */
@@ -170,6 +173,16 @@
             .post-listing-btn:hover {
                 background-color: #4255cc;
             }
+
+
+
+        #price-counter {
+            font-size: 18px;
+            color: #5b72ff;
+            margin-left: 10px;
+        }
+ 
+
     </style>
 </head>
 <body>
@@ -181,7 +194,6 @@
     </header>
 
     <main class="main-content">
-
         <aside class="sidebar">
             <h3>Filter Options</h3>
             <form class="filters-form">
@@ -220,6 +232,7 @@
                     <li>Dates Available: Feb 23 - Feb 28</li>
                 </ul>
                 <button class="book-now-btn">Book Now</button>
+                <button class="message-btn">Message</button>
             </div>
             <div class="listing">
                 <h3>Listing Title 2</h3>
@@ -231,6 +244,7 @@
                     <li>Dates Available: Mar 1 - Mar 5</li>
                 </ul>
                 <button class="book-now-btn">Book Now</button>
+                <button class="message-btn">Message</button>
             </div>
            
             <div class="listing">
@@ -243,6 +257,7 @@
                     <li>Dates Available: Feb 20 - Feb 25</li>
                 </ul>
                 <button class="book-now-btn">Book Now</button>
+                <button class="message-btn">Message</button>
             </div>
 
             <div class="listing">
@@ -255,6 +270,7 @@
                     <li>Dates Available: Mar 10 - Mar 15</li>
                 </ul>
                 <button class="book-now-btn">Book Now</button>
+                <button class="message-btn">Message</button>
             </div>
 
             <div class="listing">
@@ -267,6 +283,7 @@
                     <li>Dates Available: Apr 5 - Apr 10</li>
                 </ul>
                 <button class="book-now-btn">Book Now</button>
+                <button class="message-btn">Message</button>
             </div>
 
             <div class="listing">
@@ -279,6 +296,7 @@
                     <li>Dates Available: May 1 - May 7</li>
                 </ul>
                 <button class="book-now-btn">Book Now</button>
+                <button class="message-btn">Message</button>
             </div>
 
             <div class="listing">
@@ -291,6 +309,7 @@
                     <li>Dates Available: Mar 20 - Mar 25</li>
                 </ul>
                 <button class="book-now-btn">Book Now</button>
+                <button class="message-btn">Message</button>
             </div>
 
             <div class="listing">
@@ -303,6 +322,7 @@
                     <li>Dates Available: Apr 15 - Apr 20</li>
                 </ul>
                 <button class="book-now-btn">Book Now</button>
+                <button class="message-btn">Message</button>
             </div>
 
             <div class="listing">
@@ -315,6 +335,7 @@
                     <li>Dates Available: Mar 30 - Apr 5</li>
                 </ul>
                 <button class="book-now-btn">Book Now</button>
+                <button class="message-btn">Message</button>
             </div>
 
             <div class="listing">
@@ -327,6 +348,7 @@
                     <li>Dates Available: May 5 - May 10</li>
                 </ul>
                 <button class="book-now-btn">Book Now</button>
+                <button class="message-btn">Message</button>
             </div>
 
            
@@ -351,17 +373,4 @@
         });
     </script>
 </body>
-</html>
 
-
-
-
-
-
-
-
-
-
-@code {
-
-}

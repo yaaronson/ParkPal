@@ -1,0 +1,98 @@
+﻿@inherits LayoutComponentBase
+
+<div class="navbar">
+    <div class="logo">Logo</div>
+    <div class="nav-links">
+        <ul>
+            <li><a href="#" id="home">Home</a></li>
+            <li><a href="#" id="rent">Rent A Spot</a></li>
+            <li><a href="#" id="support">Help Center</a></li>
+        </ul>
+    </div>
+    <div class="cta-button">
+        <button id="createListing">ParkPal Your Space</button>
+    </div>
+</div>
+
+<div class="main-content">
+    @Body <!-- This is where the content of individual pages will be rendered -->
+</div>
+
+<style>
+    /* NavMenu.razor.css */
+    .navbar {
+        background-color: #f0f7ff; /* Light shade of blue */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px; /* Increased padding */
+        width: 100%;
+        font-family: Verdana, sans-serif; /* Changed font */
+    }
+
+        .navbar .logo {
+            font-weight: bold;
+            font-size: 28px; /* Increased font size */
+            color: #333; /* Dark text color */
+            flex-grow: 1;
+        }
+
+        .navbar .nav-links ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+            .navbar .nav-links ul li {
+                display: inline-block;
+                margin-right: 25px; /* Increased margin */
+            }
+
+                .navbar .nav-links ul li a {
+                    color: #333; /* Dark text color */
+                    text-decoration: none;
+                    font-weight: bold;
+                }
+
+    .cta-button button {
+        background-color: #007bff; /* Button color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px; /* Increased padding */
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    /* Adjust the button's position and style as needed */
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navigateTo = (url) => {
+            window.location.href = url;
+        };
+
+        document.getElementById('rent').addEventListener('click', function (event) {
+            event.preventDefault();
+            navigateTo('https://localhost:7279/Login');
+        });
+
+        document.getElementById('home').addEventListener('click', function (event) {
+            event.preventDefault();
+            navigateTo('https://localhost:7279/Login');
+        });
+
+        document.getElementById('support').addEventListener('click', function (event) {
+            event.preventDefault();
+            navigateTo('https://localhost:7279/Support');
+        });
+
+        document.getElementById('createListing').addEventListener('click', function (event) {
+            event.preventDefault();
+            navigateTo('https://localhost:7279/CreateListing');
+        });
+    });
+
+</script>
