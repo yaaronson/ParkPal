@@ -1,8 +1,6 @@
 ﻿@page "/"
 
 
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +18,7 @@
 
         .container {
             display: flex;
-            flex-direction: column;
+             flex-direction: column;
             align-items: center;
         }
 
@@ -28,7 +26,7 @@
         .login-box {
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             padding: 20px;
             width: 400px;
             margin: 10px;
@@ -38,7 +36,7 @@
         .login-box input,
         .signup-box button,
         .login-box button {
-            display: block;
+             display: block;
             width: calc(100% - 24px);
             padding: 10px;
             margin-bottom: 10px;
@@ -49,7 +47,7 @@
         .signup-box button,
         .login-box button {
             background-color: #007bff;
-            color: #fff;
+             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -80,8 +78,9 @@
             <h1>Sign Up</h1>
             <input type="text" placeholder="Full Name">
             <div class="message" id="nameMessage"></div>
-            <input type="tel" placeholder="Phone Number">
-            <div class="message" id="phoneMessage"></div>
+
+             <input type="tel" placeholder="Phone Number">
+             <div class="message" id="phoneMessage"></div>
             <input type="email" placeholder="Email">
             <div class="message" id="emailMessage"></div>
             <input type="password" placeholder="Password" onkeyup="checkPasswordStrength(this.value)">
@@ -99,22 +98,23 @@
         </div>
     </div>
     <script>
+               // displays the login form and hides the signup form
         function showLogin() {
             const signUpBox = document.querySelector('.signup-box');
-            const loginBox = document.querySelector('.login-box');
+             const loginBox = document.querySelector('.login-box');
 
             signUpBox.style.display = 'none';
             loginBox.style.display = 'block';
         }
-
+        // displays the signup form and hides the login form
         function showSignup() {
             const signUpBox = document.querySelector('.signup-box');
             const loginBox = document.querySelector('.login-box');
 
             signUpBox.style.display = 'block';
-            loginBox.style.display = 'none';
-        }
-
+             loginBox.style.display = 'none';
+        } 
+        //checks if password is "strong"
         function checkPasswordStrength(password) {
             const strengthDiv = document.getElementById('password-strength');
             const strengthMessage = document.getElementById('passwordMessage');
@@ -123,15 +123,15 @@
             if (strongRegex.test(password)) {
                 strengthDiv.innerHTML = 'Strong';
                 strengthDiv.className = 'strong';
-                strengthMessage.style.display = 'none';
+                 strengthMessage.style.display = 'none';
             } else {
                 strengthDiv.innerHTML = 'Weak';
                 strengthDiv.className = 'weak';
-                strengthMessage.style.display = 'block';
-                strengthMessage.innerHTML = 'Password is weak';
+                 strengthMessage.style.display = 'block';
+                 strengthMessage.innerHTML = 'Password is weak';
             }
         }
-
+        //makes sure info entered is valid 
         function validateSignUpForm() {
             const fullNameInput = document.querySelector('.signup-box input[type="text"]');
             const phoneInput = document.querySelector('.signup-box input[type="tel"]');
@@ -145,8 +145,8 @@
 
             const fullNameMessage = document.getElementById('nameMessage');
             const phoneMessage = document.getElementById('phoneMessage');
-            const emailMessage = document.getElementById('emailMessage');
-            const passwordMessage = document.getElementById('passwordMessage');
+             const emailMessage = document.getElementById('emailMessage');
+             const passwordMessage = document.getElementById('passwordMessage');
 
             if (!/^[a-zA-Z\s]{3,}$/.test(fullName)) {
                 fullNameMessage.style.display = 'block';
@@ -186,12 +186,12 @@
 
             return true;
         }
-
+        //makes sure login info is valid
         function validateLoginForm() {
             const emailInput = document.querySelector('.login-box input[type="email"]');
             const passwordInput = document.querySelector('.login-box input[type="password"]');
 
-            const email = emailInput.value;
+             const email = emailInput.value;
             const password = passwordInput.value;
 
             if (email.trim() === '' || password.trim() === '') {
