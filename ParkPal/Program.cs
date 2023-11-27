@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 using ParkPal.Components;
 
 var builder = WebApplication.CreateBuilder(args);
