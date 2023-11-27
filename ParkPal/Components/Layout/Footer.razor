@@ -1,0 +1,93 @@
+﻿@inherits LayoutComponentBase
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Footer</title>
+    <style>
+        body {
+            margin: 0;
+            padding-bottom: 140px;
+            background-color: #fff; 
+        }
+
+        .main-content {
+            min-height: calc(100vh - 100px);
+        }
+
+        .footer {
+            position: relative; 
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+            background-color: #5bc0de;
+            padding: 10px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            padding-top: 20px; 
+        }
+
+        .footer-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            font-size: 14px; 
+            font-family: Verdana;
+        }
+
+            .footer-links a:hover {
+                color: #007bff;
+            }
+
+        .footer-info {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .footer-info:hover {
+                color: #0056b3;
+            }
+
+            .footer-info p {
+                margin: 0;
+                font-size: 12px;
+            }
+
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        @Body <!-- This is where the content of individual pages will be rendered -->
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="terms.html" id="footerTerms">Terms  </a>
+                <a href="sitemap.html" id="footerSitemap">Sitemap </a>
+                <a href="privacy.html" id="footerPrivacy">Privacy </a>
+                <a href="privacy-choices.html" id="footerPrivacyChoices">Your Privacy Choices</a>
+            </div>
+            <div class="footer-info">
+                <p>If you have any questions, please reach out to support</p>
+                <p>&copy; ParkPal 2023</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+
+
+
+
+
+
