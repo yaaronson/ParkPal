@@ -98,7 +98,8 @@
         </div>
     </div>
     <script>
-               // displays the login form and hides the signup form
+        
+        // displays the login form and hides the signup form
         function showLogin() {
             const signUpBox = document.querySelector('.signup-box');
              const loginBox = document.querySelector('.login-box');
@@ -106,6 +107,7 @@
             signUpBox.style.display = 'none';
             loginBox.style.display = 'block';
         }
+
         // displays the signup form and hides the login form
         function showSignup() {
             const signUpBox = document.querySelector('.signup-box');
@@ -114,6 +116,7 @@
             signUpBox.style.display = 'block';
              loginBox.style.display = 'none';
         } 
+
         //checks if password is "strong"
         function checkPasswordStrength(password) {
             const strengthDiv = document.getElementById('password-strength');
@@ -131,6 +134,7 @@
                  strengthMessage.innerHTML = 'Password is weak';
             }
         }
+
         //makes sure info entered is valid 
         function validateSignUpForm() {
             const fullNameInput = document.querySelector('.signup-box input[type="text"]');
@@ -147,6 +151,8 @@
             const phoneMessage = document.getElementById('phoneMessage');
              const emailMessage = document.getElementById('emailMessage');
              const passwordMessage = document.getElementById('passwordMessage');
+
+             //using regex to verfiy the input
 
             if (!/^[a-zA-Z\s]{3,}$/.test(fullName)) {
                 fullNameMessage.style.display = 'block';
@@ -186,6 +192,7 @@
 
             return true;
         }
+
         //makes sure login info is valid
         function validateLoginForm() {
             const emailInput = document.querySelector('.login-box input[type="email"]');

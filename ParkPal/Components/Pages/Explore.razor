@@ -1,0 +1,18 @@
+﻿@page "/explore"
+
+
+<h1>Redirecting...</h1>
+
+@inject IJSRuntime JSRuntime
+
+@code {
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            JSRuntime.InvokeVoidAsync("eval", "window.alert('Redirecting to exploreht.html');");
+
+        }
+    }
+}
+
