@@ -59,11 +59,14 @@
             font-weight: bold;
         }
     </style>
-</head>
+</head> 
 <body>
     <div class="navbar">
-        <div class="logo">Logo</div>
+        <div class="logo">
+            <img src="/parkpallogo.png" alt="Logo">
+        </div>
         <div class="nav-links">
+            
             <ul>
                 <li><a href="#" id="home">Home</a></li>
                 <li><a href="#" id="rent">Rent A Spot</a></li>
@@ -71,6 +74,7 @@
             </ul>
         </div>
         <div class="cta-button">
+          
             <button id="createListing">ParkPal Your Space</button>
         </div>
     </div>
@@ -88,7 +92,7 @@
 
             document.getElementById('rent').addEventListener('click', function (event) {
                 event.preventDefault();
-                navigateTo('https://localhost:7279/Search');
+                navigateTo('https://localhost:7279/Explore');
             });
 
             document.getElementById('home').addEventListener('click', function (event) {
