@@ -63,6 +63,28 @@
             }
 
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('footerTerms').addEventListener('click', function (event) {
+                event.preventDefault();
+                navigateTo('https://localhost:7279/Support');
+            });
+
+            document.getElementById('footerRent').addEventListener('click', function (event) {
+                event.preventDefault();
+                navigateTo('https://localhost:7279/Search');
+            });
+
+            document.getElementById('footerPrivacyChoices').addEventListener('click', function (event) {
+                event.preventDefault();
+                navigateTo('https://localhost:7279/Support');
+            });
+
+            function navigateTo(url) {
+                window.location.href = url;
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="main-content">
@@ -72,13 +94,12 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-links">
-                <a href="terms.html" id="footerTerms">Terms  </a>
-                <a href="sitemap.html" id="footerSitemap">Sitemap </a>
-                <a href="privacy.html" id="footerPrivacy">Privacy </a>
-                <a href="privacy-choices.html" id="footerPrivacyChoices">Your Privacy Choices</a>
+                <a href="Support.razor" id="footerTerms">Terms - </a>
+                <a href="sitemap.html" id="footerRent">Rent A Space - </a>
+                <a href="privacy-choices.html" id="footerPrivacyChoices">Support</a>
             </div>
             <div class="footer-info">
-                <p>If you have any questions, please reach out to support</p>
+                <p>If you have any questions, please reach out to support via our help center</p>
                 <p>&copy; ParkPal 2023</p>
             </div>
         </div>

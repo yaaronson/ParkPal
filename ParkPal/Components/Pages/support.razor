@@ -189,27 +189,33 @@ body {
              const chatIcon = document.getElementById('open-chat');
              const chatWindow = document.getElementById('chat-window');
 
-    accordionButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const content = button.nextElementSibling;
-            button.classList.toggle('active');
+            // Toggles visibility of accordion content when each button (page title) is clicked
 
-            if (content.style.display === 'block') {
-                content.style.display = 'none';
-            } else {
-                content.style.display = 'block';
+         accordionButtons.forEach(button => {
+             button.addEventListener('click', () => {
+                  const content = button.nextElementSibling;
+                  button.classList.toggle('active');
+
+                  if (content.style.display === 'block') {
+                      content.style.display = 'none';
+                  } else {
+                        content.style.display = 'block';
             }
         });
     });
 
-    chatIcon.addEventListener('click', function () {
-        chatIcon.style.display = 'none';
-        chatWindow.style.display = 'block';
+     // Displays the chat window when the chat icon is clicked
+
+      chatIcon.addEventListener('click', function () {
+                 chatIcon.style.display = 'none';
+                 chatWindow.style.display = 'block';
     });
 
     const chatBody = document.getElementById('chat-body');
     const messageInput = document.getElementById('message');
     const sendButton = document.getElementById('send');
+
+    // Sends a message when the send button is clicked
 
     sendButton.addEventListener('click', function () {
         const message = messageInput.value.trim();
