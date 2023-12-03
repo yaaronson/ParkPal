@@ -96,10 +96,12 @@
         <input type="time" id="end-time" name="end-time" required>
 
         <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
+        <input type="text" id="address" name="address" required onkeypress="handleKeyPress(event)">
 
         <!--  Map -->
         <div id="map" style="position:relative;width:600px;height:400px;"></div>
+
+        <button type="button" onclick="showOnMap()">Show on Map</button>
 
         <label for="description">Description:</label>
         <textarea id="description" name="description" rows="4" required></textarea>
@@ -113,53 +115,61 @@
         <label for="videos">Upload Videos:</label>
         <input type="file" id="videos" name="videos" accept="video/*" multiple>
 
-        <input type="submit" value="Create Listing">
+        <input type="submit" value="Create Listing" onclick="createListing(event)">
     </form>
 
     <!--
-        * Initializes and sets up the Bing Maps API
-        * This function creates a map based on the address inputed,
-        * and shows it on the map -->
+        Initializes and sets up the Bing Maps API
+       This function creates a map based on the address inputed,
+         and shows it on the map -->
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            function loadMapScenario() {
-                var mapElement = document.getElementById('map');
-                var addressInput = document.getElementById('address');
+        let map;
 
-                if (!mapElement || !addressInput) {
-                    console.log("Map or address input element not found.");
-                    return;
-                }
+        function initMap() {
+            map = new Microsoft.Maps.Map(document.getElementById('map'), {
+                credentials: 'AtqNLHA6sIAE94ZXG6Nzm1tNb_igZu-VlDagoYFnsPc0LL1-v96Pju5pS8VyPTF8',
+                center: new Microsoft.Maps.Location(0, 0),
+                zoom: 2
+            });
+        }
 
-                var map = new Microsoft.Maps.Map(mapElement, {
-                    credentials: 'AtqNLHA6sIAE94ZXG6Nzm1tNb_igZu-VlDagoYFnsPc0LL1-v96Pju5pS8VyPTF8'
-                });
+        window.onload = function () {
+            initMap();
+        };
 
-                if (!map) {
-                    console.log("Map couldn't be loaded.");
-                    return;
-                }
-
-                var searchManager = new Microsoft.Maps.Search.SearchManager(map);
-                var autoCompleteOptions = {
-                    maxResults: 5
-                };
-
-                var autoComplete = new Microsoft.Maps.Autocomplete(searchManager, addressInput, autoCompleteOptions);
-
-                autoComplete.addEventListener('change', function (e) {
-                    if (e.result) {
-                        map.setView({ bounds: e.result.bestView });
-                        var pin = new Microsoft.Maps.Pushpin(e.result.location);
-                        map.entities.clear();
-                        map.entities.push(pin);
-                    }
-                });
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                showOnMap();
             }
+        }
 
-            loadMapScenario();
-        });
+        function showOnMap() {
+            let addressInput = document.getElementById('address').value;
+            if (addressInput.trim() !== '') {
+                fetch(`https://dev.virtualearth.net/REST/v1/Locations?query=${encodeURIComponent(addressInput)}&key=AtqNLHA6sIAE94ZXG6Nzm1tNb_igZu-VlDagoYFnsPc0LL1-v96Pju5pS8VyPTF8`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.resourceSets.length > 0 && data.resourceSets[0].resources.length > 0) {
+                            let location = data.resourceSets[0].resources[0].point.coordinates;
+                            map.setView({ center: new Microsoft.Maps.Location(location[0], location[1]), zoom: 14 });
+                            const pin = new Microsoft.Maps.Pushpin(map.getCenter(), {
+                                color: 'blue',
+                                draggable: false
+                            });
+                            map.entities.push(pin);
+                        } else {
+                            alert('Location not found');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                alert('enter an address');
+            }
+        }
     </script>
 </body>
 
