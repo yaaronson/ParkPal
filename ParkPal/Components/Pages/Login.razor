@@ -189,7 +189,8 @@
             if (result.Succeeded)
             {
                 Logger.LogInformation("User logged in.");
-                RedirectManager.RedirectTo(ReturnUrl);
+                RedirectManager.RedirectTo("Profile/",
+                new() { ["returnUrl"] = ReturnUrl});
             }
             else if (result.RequiresTwoFactor)
             {

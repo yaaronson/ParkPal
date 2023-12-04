@@ -1,6 +1,17 @@
 ﻿@page "/Profile"
+@using ParkPal.Components.Account
+@using ParkPal.Components.Account.Shared
 @using ParkPal.Components.Layout
 @layout TopNav
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@using ParkPal.Data
+
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject IdentityUserAccessor UserAccessor
+@inject IdentityRedirectManager RedirectManager
+
 
 
 <head>
@@ -96,36 +107,81 @@
     </style>
 </head>
 <body>
+    <StatusMessage />
+    <h1>Welcome, @firstName!</h1>
     <div class="profile-form-container">
-        <h1>User Profile Information</h1>
-        <form class="profile-form">
-            <div class="input-group">
-                <label for="fullName">Full Name:</label>
-                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
+        <h1>Edit Profile Information</h1>
+        <EditForm Model="Input" FormName="profile" OnValidSubmit="OnValidSubmitAsync" method="post">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert" />
+            <div class="form-floating mb-3">
+                <input type="text" value="@username" class="form-control" placeholder="Please choose your username." disabled />
+                <label for="username" class="form-label">Username</label>
             </div>
-            <div class="input-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email">
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number." />
+                <label for="phone-number" class="form-label">Phone number</label>
+                <ValidationMessage For="() => Input.PhoneNumber" class="text-danger" />
             </div>
-            <div class="input-group">
-                <label for="phone">Phone:</label>
-                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+            <div class="form-floating mb-3">
+                <InputDate @bind-Value="Input.DateOfBirth" class="form-control" />
+                <label for="date-of-birth" class="form-label">Date of birth</label>
+                <ValidationMessage For="() => Input.DateOfBirth" class="text-danger" />
             </div>
-            <div class="input-group">
-                <label for="address">Address:</label>
-                <input type="text" id="address" name="address" placeholder="Enter your address">
-            </div>
-            <div class="input-group">
-                <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" name="dob">
-            </div>
-            <div class="input-group">
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" placeholder="Write a short bio about yourself"></textarea>
-            </div>
-            <button type="submit">Save Profile</button>
-        </form>
+
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        </EditForm>
     </div>
+    @code {
+        private ApplicationUser user = default!;
+        private string? username;
+        private string? phoneNumber;
+        private string? address;
+        private string? firstName;
+
+        [CascadingParameter]
+        private HttpContext HttpContext { get; set; } = default!;
+
+        [SupplyParameterFromForm]
+        private InputModel Input { get; set; } = new();
+
+        protected override async Task OnInitializedAsync()
+        {
+            user = await UserAccessor.GetRequiredUserAsync(HttpContext);
+            username = await UserManager.GetUserNameAsync(user);
+            phoneNumber = await UserManager.GetPhoneNumberAsync(user);
+
+            firstName = user.Fname;
+            Input.PhoneNumber ??= phoneNumber;
+            Input.DateOfBirth ??= user.DateOfBirth;
+
+        }
+
+    private async Task OnValidSubmitAsync()
+    {
+        user.PhoneNumber = Input.PhoneNumber;
+        user.DateOfBirth = Input.DateOfBirth;
+        var updateResult = await UserManager.UpdateAsync(user);
+        if (!updateResult.Succeeded)
+            {
+                RedirectManager.RedirectToCurrentPageWithStatus("Error: when trying to update the user.", HttpContext);
+                return;
+            }
+
+        await SignInManager.RefreshSignInAsync(user);
+        RedirectManager.RedirectToCurrentPageWithStatus("Your profile has been updated", HttpContext);
+    }
+
+    private sealed class InputModel
+    {
+        [Phone]
+        [Display(Name = "Phone number")]
+        public string? PhoneNumber { get; set; }
+
+        public DateOnly? DateOfBirth { get; set; }
+
+    }
+}
 </body>
 
 

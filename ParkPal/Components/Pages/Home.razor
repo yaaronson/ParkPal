@@ -133,6 +133,16 @@ a:hover {
             <hr />
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.Fname" class="form-control" autocomplete="first" aria-required="true" placeholder="Ploni" />
+                <label for="fname">First Name</label>
+                <ValidationMessage For="() => Input.Fname" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.Lname" class="form-control" autocomplete="last" aria-required="true" placeholder="Almoni" />
+                <label for="lname">Last Name</label>
+                <ValidationMessage For="() => Input.Lname" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
                 <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <label for="email">Email</label>
                 <ValidationMessage For="() => Input.Email" class="text-danger" />
@@ -159,25 +169,28 @@ a:hover {
 </div>
 
 
-   @code {
-                private IEnumerable<IdentityError>? identityErrors;
+    @code {
+        private IEnumerable<IdentityError>? identityErrors;
 
-                [SupplyParameterFromForm]
-                private InputModel Input { get; set; } = new();
+        [SupplyParameterFromForm]
+        private InputModel Input { get; set; } = new();
 
-                [SupplyParameterFromQuery]
-                private string? ReturnUrl { get; set; }
+        [SupplyParameterFromQuery]
+        private string? ReturnUrl { get; set; }
 
-                private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
+        private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
 
-                public async Task RegisterUser(EditContext editContext)
-                {
-                    var user = CreateUser();
+        public async Task RegisterUser(EditContext editContext)
+        {
+            var user = CreateUser();
 
-                    await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                    var emailStore = GetEmailStore();
-                    await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                    var result = await UserManager.CreateAsync(user, Input.Password);
+            user.Fname = Input.Fname;
+            user.Lname = Input.Lname;
+
+            await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+            var emailStore = GetEmailStore();
+            await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+            var result = await UserManager.CreateAsync(user, Input.Password);
 
                     if (!result.Succeeded)
                     {
@@ -231,6 +244,14 @@ a:hover {
 
                 private sealed class InputModel
                 {
+                    [Required(ErrorMessage = "First name is required.")]
+                    [Display(Name = "First name")]
+                    public string Fname { get; set; } = "";
+
+                    [Required(ErrorMessage = "Last name is required.")]
+                    [Display(Name = "Last name")]
+                    public string Lname { get; set; } = "";
+
                     [Required]
                     [EmailAddress]
                     [Display(Name = "Email")]

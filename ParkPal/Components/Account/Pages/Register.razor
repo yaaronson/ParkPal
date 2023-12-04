@@ -67,6 +67,11 @@
 
     public async Task RegisterUser(EditContext editContext)
     {
+        if (!editContext.Validate()) 
+    {
+        return;
+    }
+
         var user = CreateUser();
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -126,6 +131,7 @@
 
     private sealed class InputModel
     {
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
