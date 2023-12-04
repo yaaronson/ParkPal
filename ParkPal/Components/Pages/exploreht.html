@@ -2,18 +2,19 @@
 
 <head>
     <title>Location Finder</title>
+    
     <style>
-       
+
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
-            font-family: Arial, sans-serif; 
+            font-family: Arial, sans-serif;
         }
 
         #map {
-            height: calc(100% - 40px); 
+            height: calc(100% - 40px);
             width: 100%;
         }
 
@@ -34,7 +35,7 @@
             padding: 8px;
             margin-right: 5px;
             border: 1px solid #ccc;
-            border-radius: 20px; 
+            border-radius: 20px;
             font-family: inherit;
             font-size: 14px;
             outline: none;
@@ -54,7 +55,7 @@
             .filter-options label,
             .filter-options select {
                 padding: 8px;
-                border-radius: 20px; 
+                border-radius: 20px;
                 font-family: inherit;
                 font-size: 14px;
                 outline: none;
@@ -73,10 +74,12 @@
             #findBtn:hover {
                 background-color: #0056b3;
             }
+
     </style>
 
 </head>
 <body>
+    </script>
     <form id="addressForm">
         <input type="text" id="addressInput" placeholder="Enter Address">
         <button type="button" id="findBtn">Find Location</button>
@@ -101,6 +104,7 @@
             </select>
         </div>
     </form>
+
 
     <div id="map"></div>
 
@@ -166,4 +170,6 @@
             document.getElementById('addressInput').value = suggestionResult.formattedSuggestion;
         }
     </script>
+
+
 </body>

@@ -1,0 +1,231 @@
+﻿@page "/settings"
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .settings-container {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .setting-option {
+            margin-bottom: 15px;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background-color: #222;
+            color: white;
+        }
+
+        /* Toggle Styles */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: background-color 0.4s;
+            border-radius: 34px;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: transform 0.4s;
+                border-radius: 50%;
+            }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+            input:checked + .slider:before {
+                transform: translateX(26px);
+                background-color: #fff;
+            }
+
+        .save-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #2196F3;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+
+            .save-btn:hover {
+                background-color: #0d8bf2;
+            }
+
+        .custom-dropdown {
+            position: relative;
+            width: 150px; /* Adjust width as needed */
+        }
+
+            .custom-dropdown select {
+                width: 100%;
+                padding: 8px;
+                font-size: 16px;
+                border: none;
+                border-radius: 4px;
+                appearance: none;
+                -webkit-appearance: none;
+                background-color: #f2f2f2;
+                color: #333;
+                cursor: pointer;
+            }
+
+            .custom-dropdown::after {
+                content: "\25BC"; /* Unicode for down arrow */
+                position: absolute;
+                top: 50%;
+                right: 8px;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <h2 data-translate="settings">Settings</h2>
+
+        <div class="setting-option">
+            <label for="language" data-translate="selectLanguage">Select Language:</label>
+            <div class="custom-dropdown">
+                <select id="language" onchange="changeLanguage()">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="setting-option">
+            <label for="notifications" data-translate="enableNotifications">Enable Notifications:</label>
+            <input type="checkbox" id="notifications">
+        </div>
+
+        <div class="setting-option">
+            <label for="modeSwitch" data-translate="darkMode">Dark Mode:</label>
+            <label class="switch">
+                <input type="checkbox" id="modeSwitch" onchange="toggleDarkMode()">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="setting-option">
+            <button class="save-btn" onclick="saveSettings()" data-translate="saveSettings">Save Settings</button>
+        </div>
+
+        <script>
+            // JavaScript code with comments
+            const translations = {
+                en: {
+                    settings: 'Settings',
+                    selectLanguage: 'Select Language:',
+                    enableNotifications: 'Enable Notifications:',
+                    darkMode: 'Dark Mode:',
+                    saveSettings: 'Save Settings'
+                },
+                es: {
+                    settings: 'Configuración',
+                    selectLanguage: 'Seleccionar Idioma:',
+                    enableNotifications: 'Habilitar Notificaciones:',
+                    darkMode: 'Modo Oscuro:',
+                    saveSettings: 'Guardar Configuración'
+                }
+            };
+
+            function loadSettings() {
+                const languageSelect = document.getElementById('language');
+                const savedLanguage = localStorage.getItem('language') || 'en';
+                languageSelect.value = savedLanguage;
+                translatePage(savedLanguage);
+
+                const darkModeSwitch = document.getElementById('modeSwitch');
+                const savedMode = localStorage.getItem('darkMode') === 'true';
+                darkModeSwitch.checked = savedMode;
+                setDarkMode(savedMode);
+            }
+
+            function changeLanguage() {
+                const languageSelect = document.getElementById('language');
+                const selectedLanguage = languageSelect.value;
+                translatePage(selectedLanguage);
+            }
+
+            function translatePage(lang) {
+                const elements = document.querySelectorAll('[data-translate]');
+                elements.forEach(element => {
+                    const key = element.getAttribute('data-translate');
+                    element.textContent = translations[lang][key];
+                });
+            }
+
+            function saveSettings() {
+                const languageSelect = document.getElementById('language');
+                localStorage.setItem('language', languageSelect.value);
+                alert('Settings saved!');
+                loadSettings();
+            }
+
+            function setDarkMode(isDark) {
+                const body = document.body;
+                if (isDark) {
+                    body.classList.add('dark-mode');
+                } else {
+                    body.classList.remove('dark-mode');
+                }
+                localStorage.setItem('darkMode', isDark);
+            }
+
+            function toggleDarkMode() {
+                const darkModeSwitch = document.getElementById('modeSwitch');
+                setDarkMode(darkModeSwitch.checked);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                loadSettings();
+            });
+        </script>
+    </div>
+</body>
+
