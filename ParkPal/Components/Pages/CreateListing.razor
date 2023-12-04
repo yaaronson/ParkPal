@@ -74,54 +74,91 @@
     <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=YOUR_BING_MAPS_API_KEY'></script>
 </head>
 <body>
-    <form class="listing-form" enctype="multipart/form-data">
-        <h2>ParkPal Your Space!</h2>
 
+    <EditForm class="listing-form" Model="@listing" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
-
+        <InputText id="title" @bind-Value="listing.Title" />
+    </div>
+    <div>
         <label for="price">Price Per Day:</label>
-        <input type="number" id="price" name="price" min="0" required>
+        <InputNumber id="price" @bind-Value="listing.Price" min="0" />
+    </div>
 
+     <div>
         <label for="start-date">Start Date:</label>
-        <input type="date" id="start-date" name="start-date" required>
+        <InputDate id="start-date" @bind-Value="listing.StartDate" />
+    </div>
 
+    <div>
         <label for="start-time">Start Time:</label>
-        <input type="time" id="start-time" name="start-time" required>
+        <InputDate id="start-time" @bind-Value="listing.StartTime" />
+    </div>
 
+    <div>
         <label for="end-date">End Date:</label>
-        <input type="date" id="end-date" name="end-date" required>
+        <InputDate id="end-date" @bind-Value="listing.EndDate" />
+    </div>
 
+    <div>
         <label for="end-time">End Time:</label>
-        <input type="time" id="end-time" name="end-time" required>
+        <InputDate id="end-time" @bind-Value="listing.EndTime" />
+    </div>
 
+    <div>
         <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required onkeypress="handleKeyPress(event)">
+        <InputText id="address" @bind-Value="listing.Address" @onchange="HandleAddressChange" />
+        <button @onclick="GetCoordinates">Get Coordinates</button>
+    </div>
+
+    <div>
+        <label>Latitude:</label>
+        <span>@listing.Latitude</span>
+    </div>
+
+    <div>
+        <label>Longitude:</label>
+        <span>@listing.Longitude</span>
+    </div>
+
+    <div>
+        <label for="description">Description:</label>
+        <InputTextArea id="description" @bind-Value="listing.Description" />
+    </div>
+
+    <div>
+        <label for="additional-notes">Additional Notes:</label>
+        <InputTextArea id="additional-notes" @bind-Value="listing.AdditionalNotes" />
+    </div>
+
+    <div>
+        <label for="images">Upload Images:</label>
+        <InputFile id="images" @bind-Value="listing.Images" accept="image/*" multiple />
+    </div>
 
         <!--  Map -->
         <div id="map" style="position:relative;width:600px;height:400px;"></div>
 
         <button type="button" onclick="showOnMap()">Show on Map</button>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="4" required></textarea>
-
-        <label for="additional-notes">Additional Notes:</label>
-        <textarea id="additional-notes" name="additional-notes" rows="4"></textarea>
-
-        <label for="images">Upload Images:</label>
-        <input type="file" id="images" name="images" accept="image/*" multiple>
-
-        <label for="videos">Upload Videos:</label>
-        <input type="file" id="videos" name="videos" accept="video/*" multiple>
-
-        <input type="submit" value="Create Listing" onclick="createListing(event)">
-    </form>
+    </EditForm>
 
     <!--
         Initializes and sets up the Bing Maps API
        This function creates a map based on the address inputed,
          and shows it on the map -->
+    @code {
+    private ListingModel listing = new ListingModel();
+
+    private async Task HandleValidSubmit()
+    {
+        // Logic to add the listing to the database
+        await ListingService.AddListingAsync(listing);
+    }
+}
 
     <script>
         let map;
@@ -169,8 +206,21 @@
             } else {
                 alert('enter an address');
             }
+            document.getElementById('latitude').value = location[0];
+            document.getElementById('longitude').value = location[1];
         }
     </script>
+    @inject IJSRuntime JSRuntime
+
+    <InputText @bind-Value="listing.Address" @onchange="GetCoordinatesFromAddress" />
+
+
+
+
+    }
+
+
+
 </body>
 
 
