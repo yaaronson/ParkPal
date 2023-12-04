@@ -1,5 +1,16 @@
 ﻿@page "/Login"
 
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+@using ParkPal.Components.Account
+@using ParkPal.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ILogger<Login> Logger
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,63 +26,85 @@
         }
 
         .logo {
-            margin-top: 20px; 
+            margin-top: 20px;
             text-align: center;
         }
 
             .logo img {
-                max-width: 200px; 
+                max-width: 200px;
             }
 
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 400px; 
+            width: 400px;
+            margin-top: 20px;
         }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .signup-box,
         .login-box {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             padding: 20px;
-            width: 400px;
+            width: 100%;
             margin: 10px;
         }
 
-            .signup-box input,
-            .login-box input,
-            .signup-box button,
-            .login-box button {
-                display: block;
-                width: calc(100% - 24px);
-                padding: 10px;
-                margin-bottom: 10px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
+        .form-floating {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-label {
+            margin-left: 5px;
+            margin-top: -5px;
+            color: #333;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+            .checkbox .form-check-input {
+                margin-right: 10px;
             }
 
-            .signup-box button,
-            .login-box button {
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
             }
 
-                .signup-box button:hover,
-                .login-box button:hover {
-                    background-color: #0056b3;
-                }
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        .text-danger {
+            color: red;
+        }
 
         p a {
             color: blue;
@@ -80,45 +113,115 @@
     </style>
 </head>
 
+
+
 <body>
     <div class="logo">
         <img src="/parkpallogo.png" alt="Logo">
     </div>
     <div class="container">
         <div class="login-box">
-            <h1>Login</h1>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <button onclick="return validateLoginForm()">Login</button>
-            <p>Don't have an account? <a href="#" onclick="redirectToHome()">Sign Up</a></p>
+            <section>
+            <ParkPal.Components.Account.Shared.StatusMessage Message="@errorMessage" />
+
+            <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
+                <DataAnnotationsValidator />
+                <h2>Sign in</h2>
+                <hr />
+                <ValidationSummary class="text-danger" role="alert" />
+                <div class="form-floating mb-3">
+                    <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label for="email" class="form-label">Email</label>
+                    <ValidationMessage For="() => Input.Email" class="text-danger" />
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                    <label for="password" class="form-label">Password</label>
+                    <ValidationMessage For="() => Input.Password" class="text-danger" />
+                </div>
+                <div class="checkbox mb-3">
+                    <label class="form-label">
+                        <InputCheckbox @bind-Value="Input.RememberMe" class="darker-border-checkbox form-check-input" />
+                        Remember me
+                    </label>
+                </div>
+                <div>
+                    <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                </div>
+                <div>
+                    <p>
+                        <a href="@(NavigationManager.GetUriWithQueryParameters("/", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</a>
+                    </p>
+                    <p>
+                        <a href="Account/ResendEmailConfirmation">Resend email confirmation</a>
+                    </p>
+                </div>
+            </EditForm>
+        </section>
         </div>
     </div>
-    <script>
+    @code {
+        private string? errorMessage;
 
-        //makes sure both inputs were entered itherwise dislays a message/alert
+        [CascadingParameter]
+        private HttpContext HttpContext { get; set; } = default!;
 
-        function validateLoginForm() {
-             const emailInput = document.querySelector('input[type="email"]');
-            const passwordInput = document.querySelector('input[type="password"]');
+        [SupplyParameterFromForm]
+        private InputModel Input { get; set; } = new();
 
-            const email = emailInput.value;
-             const password = passwordInput.value;
+        [SupplyParameterFromQuery]
+        private string? ReturnUrl { get; set; }
 
-            if (email.trim() === '' || password.trim() === '') {
-                alert('Please enter both email and password.');
-                return false;
+        protected override async Task OnInitializedAsync()
+        {
+            if (HttpMethods.IsGet(HttpContext.Request.Method))
+            {
+                // Clear the existing external cookie to ensure a clean login process
+                await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             }
-
-            return true;
         }
 
-        function redirectToHome() {
-            window.location.href = 'https://localhost:7279/';
+        public async Task LoginUser()
+        {
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                Logger.LogInformation("User logged in.");
+                RedirectManager.RedirectTo(ReturnUrl);
+            }
+            else if (result.RequiresTwoFactor)
+            {
+                RedirectManager.RedirectTo(
+                "Account/LoginWith2fa",
+                new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Input.RememberMe });
+            }
+            else if (result.IsLockedOut)
+            {
+                Logger.LogWarning("User account locked out.");
+                RedirectManager.RedirectTo("Account/Lockout");
+            }
+            else
+            {
+                errorMessage = "Error: Invalid login attempt.";
+            }
         }
-    </script>
+
+        private sealed class InputModel
+        {
+            [Required]
+            [EmailAddress]
+            public string Email { get; set; } = "";
+
+            [Required]
+            [DataType(DataType.Password)]
+            public string Password { get; set; } = "";
+
+            [Display(Name = "Remember me?")]
+            public bool RememberMe { get; set; }
+        }
+    }
+
+
 </body>
-
-
-
-
-

@@ -1,82 +1,120 @@
 ﻿@page "/"
 
+@using System.ComponentModel.DataAnnotations
+@using System.Text
+@using System.Text.Encodings.Web
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.WebUtilities
+@using ParkPal.Components.Account
+@using ParkPal.Components.Account.Pages
+@using ParkPal.Data
+
+@inject UserManager<ApplicationUser> UserManager
+@inject IUserStore<ApplicationUser> UserStore
+@inject SignInManager<ApplicationUser> SignInManager
+@inject IEmailSender<ApplicationUser> EmailSender
+@inject ILogger<Register> Logger
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f4f4f4;
-        }
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+}
 
-        .logo {
-            margin-top: 20px; /* Adjust the margin as needed */
-            text-align: center;
-        }
+.logo {
+    margin-top: 20px;
+    text-align: center;
+}
 
-            .logo img {
-                max-width: 200px; /* Adjust the size as needed */
-            }
+.logo img {
+    max-width: 200px;
+}
 
-        .container {
-            display: flex;
-             flex-direction: column;
-            align-items: center;
-        }
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    margin-top: 20px;
+}
 
-        .signup-box,
-        .login-box {
-            background-color: #fff;
-            border-radius: 10px;
-             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            width: 400px;
-            margin: 10px;
-        }
+.container h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
 
-        .signup-box input,
-        .login-box input,
-        .signup-box button,
-        .login-box button {
-             display: block;
-            width: calc(100% - 24px);
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
+.row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
 
-        .signup-box button,
-        .login-box button {
-            background-color: #007bff;
-             color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+.col-md-4 {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin: 10px;
+}
 
-        .signup-box button:hover,
-        .login-box button:hover {
-            background-color: #0056b3;
-        }
+.form-floating {
+    margin-bottom: 15px;
+}
 
-        p a {
-            color: blue;
-            text-decoration: none;
-        }
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-        .message {
-            font-size: 12px;
-            color: red;
-            display: none;
-        }
+.form-label {
+    margin-left: 5px;
+    margin-top: -5px;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.text-danger {
+    color: red;
+}
+
     </style>
 </head>
 
@@ -85,153 +123,129 @@
         <img src="/parkpallogo.png" alt="Logo">
     </div>
     <div class="container">
-        <div class="signup-box">
-            <h1>Sign Up</h1>
-            <input type="text" placeholder="Full Name">
-            <div class="message" id="nameMessage"></div>
 
-             <input type="tel" placeholder="Phone Number">
-             <div class="message" id="phoneMessage"></div>
-            <input type="email" placeholder="Email">
-            <div class="message" id="emailMessage"></div>
-            <input type="password" placeholder="Password" onkeyup="checkPasswordStrength(this.value)">
-            <div id="password-strength"></div>
-            <div class="message" id="passwordMessage"></div>
-            <button onclick="return validateSignUpForm()">Sign Up</button>
-            <p>Already have an account? <a href="#" onclick="redirectToLogin()">Login</a></p>
-        </div>
-        <div class="login-box" style="display: none;">
-            <h1>Login</h1>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <button onclick="return validateLoginForm()">Login</button>
-            <p>Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
+<div class="row">
+    <div class="col-md-4">
+        <ParkPal.Components.Account.Shared.StatusMessage Message="@Message" />
+        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+            <DataAnnotationsValidator />
+            <h2>Register</h2>
+            <hr />
+            <ValidationSummary class="text-danger" role="alert" />
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label for="email">Email</label>
+                <ValidationMessage For="() => Input.Email" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label for="password">Password</label>
+                <ValidationMessage For="() => Input.Password" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label for="confirm-password">Confirm Password</label>
+                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <div>
+                    <p>
+                        <a href="@(NavigationManager.GetUriWithQueryParameters("Login", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Already have an account</a>
+                    </p>
+                </div>
+        </EditForm>
         </div>
     </div>
-    <script>
-        
-        // displays the login form and hides the signup form
-        function showLogin() {
-            const signUpBox = document.querySelector('.signup-box');
-             const loginBox = document.querySelector('.login-box');
+</div>
 
-            signUpBox.style.display = 'none';
-            loginBox.style.display = 'block';
-        }
 
-        // displays the signup form and hides the login form
-        function showSignup() {
-            const signUpBox = document.querySelector('.signup-box');
-            const loginBox = document.querySelector('.login-box');
+   @code {
+                private IEnumerable<IdentityError>? identityErrors;
 
-            signUpBox.style.display = 'block';
-             loginBox.style.display = 'none';
-        } 
+                [SupplyParameterFromForm]
+                private InputModel Input { get; set; } = new();
 
-        //checks if password is "strong"
-        function checkPasswordStrength(password) {
-            const strengthDiv = document.getElementById('password-strength');
-            const strengthMessage = document.getElementById('passwordMessage');
-            const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})$/;
+                [SupplyParameterFromQuery]
+                private string? ReturnUrl { get; set; }
 
-            if (strongRegex.test(password)) {
-                strengthDiv.innerHTML = 'Strong';
-                strengthDiv.className = 'strong';
-                 strengthMessage.style.display = 'none';
-            } else {
-                strengthDiv.innerHTML = 'Weak';
-                strengthDiv.className = 'weak';
-                 strengthMessage.style.display = 'block';
-                 strengthMessage.innerHTML = 'Password is weak';
+                private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
+
+                public async Task RegisterUser(EditContext editContext)
+                {
+                    var user = CreateUser();
+
+                    await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                    var emailStore = GetEmailStore();
+                    await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                    var result = await UserManager.CreateAsync(user, Input.Password);
+
+                    if (!result.Succeeded)
+                    {
+                        identityErrors = result.Errors;
+                        return;
+                    }
+
+                    Logger.LogInformation("User created a new account with password.");
+
+                    var userId = await UserManager.GetUserIdAsync(user);
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var callbackUrl = NavigationManager.GetUriWithQueryParameters(
+                        NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
+                        new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
+
+                    await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
+
+                    if (UserManager.Options.SignIn.RequireConfirmedAccount)
+                    {
+                        RedirectManager.RedirectTo(
+                            "Account/RegisterConfirmation",
+                            new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+                    }
+
+                    await SignInManager.SignInAsync(user, isPersistent: false);
+                    RedirectManager.RedirectTo(ReturnUrl);
+                }
+
+                private ApplicationUser CreateUser()
+                {
+                    try
+                    {
+                        return Activator.CreateInstance<ApplicationUser>();
+                    }
+                    catch
+                    {
+                        throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                            $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor.");
+                    }
+                }
+
+                private IUserEmailStore<ApplicationUser> GetEmailStore()
+                {
+                    if (!UserManager.SupportsUserEmail)
+                    {
+                        throw new NotSupportedException("The default UI requires a user store with email support.");
+                    }
+                    return (IUserEmailStore<ApplicationUser>)UserStore;
+                }
+
+                private sealed class InputModel
+                {
+                    [Required]
+                    [EmailAddress]
+                    [Display(Name = "Email")]
+                    public string Email { get; set; } = "";
+
+                    [Required]
+                    [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+                    [DataType(DataType.Password)]
+                    [Display(Name = "Password")]
+                    public string Password { get; set; } = "";
+
+                    [DataType(DataType.Password)]
+                    [Display(Name = "Confirm password")]
+                    [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+                    public string ConfirmPassword { get; set; } = "";
+                }
             }
-        }
-
-        //makes sure info entered is valid 
-        function validateSignUpForm() {
-            const fullNameInput = document.querySelector('.signup-box input[type="text"]');
-            const phoneInput = document.querySelector('.signup-box input[type="tel"]');
-            const emailInput = document.querySelector('.signup-box input[type="email"]');
-            const passwordInput = document.querySelector('.signup-box input[type="password"]');
-
-            const fullName = fullNameInput.value;
-            const phoneNumber = phoneInput.value;
-            const email = emailInput.value;
-            const password = passwordInput.value;
-
-            const fullNameMessage = document.getElementById('nameMessage');
-            const phoneMessage = document.getElementById('phoneMessage');
-             const emailMessage = document.getElementById('emailMessage');
-             const passwordMessage = document.getElementById('passwordMessage');
-
-             //using regex to verfiy the input
-
-            if (!/^[a-zA-Z\s]{3,}$/.test(fullName)) {
-                fullNameMessage.style.display = 'block';
-                fullNameMessage.innerHTML = 'Invalid name';
-                return false;
-            } else {
-                fullNameMessage.style.display = 'none';
-            }
-
-            if (!/^[0-9]+$/.test(phoneNumber)) {
-                phoneMessage.style.display = 'block';
-                phoneMessage.innerHTML = 'Invalid phone number';
-                return false;
-            } else {
-                phoneMessage.style.display = 'none';
-            }
-
-            if (!/\S+\S+\.\S+/.test(email)) {
-                emailMessage.style.display = 'block';
-                emailMessage.innerHTML = 'Invalid email';
-                return false;
-            } else {
-                emailMessage.style.display = 'none';
-            }
-
-            const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
-            if (!strongRegex.test(password)) {
-                passwordMessage.style.display = 'block';
-                passwordMessage.innerHTML = 'Password is weak';
-                return false;
-            } else {
-                const strengthDiv = document.getElementById('password-strength');
-                strengthDiv.innerHTML = 'Strong';
-                strengthDiv.className = 'strong';
-                passwordMessage.style.display = 'none';
-            }
-
-            return true;
-        }
-
-        //makes sure login info is valid
-        function validateLoginForm() {
-            const emailInput = document.querySelector('.login-box input[type="email"]');
-            const passwordInput = document.querySelector('.login-box input[type="password"]');
-
-             const email = emailInput.value;
-            const password = passwordInput.value;
-
-            if (email.trim() === '' || password.trim() === '') {
-                alert('Please enter both email and password.');
-                return false;
-            }
-
-            return true;
-        }
-
-        function redirectToLogin() {
-            window.location.href = 'https://localhost:7279/Login';
-        }
-    </script>
 </body>
-
-
-
-
-
-
-
-
-
-
