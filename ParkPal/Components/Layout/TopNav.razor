@@ -6,28 +6,27 @@
     <meta charset="UTF-8">
     <title>Navigation Menu</title>
     <style>
-     
         body {
-            margin: 0; 
+            margin: 0;
         }
 
         .navbar {
-            background-color: #5bc0de; 
+            background-color: #5bc0de;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px; 
+            padding: 15px;
             width: 100%;
-            font-family: 'Arial', sans-serif; 
-            border-radius: 8px; 
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
-            margin-top: 0; 
+            font-family: 'Arial', sans-serif;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
         }
 
             .navbar .logo {
                 font-weight: bold;
-                font-size: 28px; 
-                color: #fff; 
+                font-size: 28px;
+                color: #fff;
                 flex-grow: 1;
             }
 
@@ -40,45 +39,93 @@
 
                 .navbar .nav-links ul li {
                     display: inline-block;
-                    margin-right: 25px; 
+                    margin-right: 25px;
                 }
 
                     .navbar .nav-links ul li a {
-                        color: #fff; 
+                        color: black;
                         text-decoration: none;
                         font-weight: bold;
                     }
 
+
+
+        .dropdown .dropbtn:after {
+            content: "\25BC"; 
+            margin-left: 5px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
+        .dropdown .dropbtn {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            color: black; 
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: black;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+                color: black; 
+            }
+
+
+
         .cta-button button {
-            background-color: #007bff; 
+            background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 10px 20px; 
+            padding: 10px 20px;
             cursor: pointer;
             font-weight: bold;
         }
     </style>
-</head> 
+</head>
 <body>
     <div class="navbar">
         <div class="logo">
             <img src="/parkpallogo.png" alt="Logo">
         </div>
         <div class="nav-links">
-            
             <ul>
                 <li><a href="#" id="home">Home</a></li>
                 <li><a href="#" id="rent">Rent A Spot</a></li>
-                <li><a href="#" id="support">Help Center</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn" id="dropHelpCenter">Help Center</a>
+                    <div class="dropdown-content">
+                        <a href="#" id="MyBookings">My Bookings</a>
+                        <a href="#" id="Messages">Messages</a>
+                        <a href="#" id="Profile">Profile</a>
+                        <a href="#" id="Settings">Settings</a>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="cta-button">
-          
             <button id="createListing">ParkPal Your Space</button>
         </div>
     </div>
-
 
     <div class="main-content">
         @Body <!-- This is where the content of each page will be  -->
@@ -100,14 +147,40 @@
                 navigateTo('https://localhost:7279/Login');
             });
 
-            document.getElementById('support').addEventListener('click', function (event) {
+            const createListingButton = document.getElementById('createListing');
+            if (createListingButton) {
+                createListingButton.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    navigateTo('https://localhost:7279/CreateListing');
+                });
+            } else {
+                console.error('Button not found');
+            }
+
+            document.getElementById('dropHelpCenter').addEventListener('click', function (event) {
                 event.preventDefault();
                 navigateTo('https://localhost:7279/Support');
             });
 
-            document.getElementById('createListing').addEventListener('click', function (event) {
+
+            document.getElementById('MyBookings').addEventListener('click', function (event) {
                 event.preventDefault();
-                navigateTo('https://localhost:7279/CreateListing');
+                navigateTo('https://localhost:7279/Bookings');
+            });
+
+            document.getElementById('Messages').addEventListener('click', function (event) {
+                event.preventDefault();
+                navigateTo('https://localhost:7279/Messages');
+            });
+
+            document.getElementById('Profile').addEventListener('click', function (event) {
+                event.preventDefault();
+                navigateTo('https://localhost:7279/Profile');
+            });
+
+            document.getElementById('Settings').addEventListener('click', function (event) {
+                event.preventDefault();
+                navigateTo('https://localhost:7279/Settings');
             });
         });
 
@@ -115,7 +188,7 @@
 </body>
 
 <footer>
-    
+
 </footer>
 
 
