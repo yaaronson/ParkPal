@@ -55,14 +55,14 @@
         <input type="submit" value="Create Listing" onclick="createListing(event)">
     </form>
 
-    <!--
-        Initializes and sets up the Bing Maps API
-       This function creates a map based on the address inputed,
-         and shows it on the map -->
+   
+    <!-- JS for displaying and interacting with the map -->
 
     <script>
+        
         let map;
 
+        //  initializes the map
         function initMap() {
             map = new Microsoft.Maps.Map(document.getElementById('map'), {
                 credentials: 'AtqNLHA6sIAE94ZXG6Nzm1tNb_igZu-VlDagoYFnsPc0LL1-v96Pju5pS8VyPTF8',
@@ -75,6 +75,7 @@
             initMap();
         };
 
+        // Function to handle key press events, specifically the 'Enter' key
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
@@ -82,14 +83,18 @@
             }
         }
 
+        // Function to show a specific address on the map
         function showOnMap() {
             let addressInput = document.getElementById('address').value;
             if (addressInput.trim() !== '') {
+                // Fetching location data based on the provided address
                 fetch(`https://dev.virtualearth.net/REST/v1/Locations?query=${encodeURIComponent(addressInput)}&key=AtqNLHA6sIAE94ZXG6Nzm1tNb_igZu-VlDagoYFnsPc0LL1-v96Pju5pS8VyPTF8`)
                     .then(response => response.json())
                     .then(data => {
+                        // Checking if the location data is available
                         if (data.resourceSets.length > 0 && data.resourceSets[0].resources.length > 0) {
                             let location = data.resourceSets[0].resources[0].point.coordinates;
+                            // Setting the map view to the obtained location
                             map.setView({ center: new Microsoft.Maps.Location(location[0], location[1]), zoom: 14 });
                             const pin = new Microsoft.Maps.Pushpin(map.getCenter(), {
                                 color: 'blue',
@@ -104,12 +109,15 @@
                         console.error('Error:', error);
                     });
             } else {
-                alert('enter an address');
+                alert('Enter an address');
             }
         }
     </script>
+
+    <!--  darkmode script -->
     <script src="/bootstrap/JS/darkmode.js"></script>
 </body>
+
 
 
 

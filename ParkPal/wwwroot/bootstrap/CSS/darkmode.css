@@ -5,7 +5,7 @@
     color: #fff;
 }
 
-    /* Reset filter for text elements */
+   
     .dark-mode h1,
     .dark-mode h2,
     .dark-mode h3,
@@ -18,7 +18,7 @@
     }
 
 
-    /* Headers in dark mode */
+  
     .dark-mode h1,
     .dark-mode h2,
     .dark-mode h3,
@@ -29,13 +29,13 @@
         background-color: transparent; 
     }
 
-    /* Paragraphs in dark mode */
+  
     .dark-mode p {
         color: #fff;
         background-color: transparent; 
     }
 
-    /* Adjustments for links in dark mode */
+
     .dark-mode a {
         color: #aaa;
         filter: invert(0); 

@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Settings</title>
+    <link rel="stylesheet" href="/bootstrap/CSS/darkmode.css">
     <link rel="stylesheet" href="/bootstrap/CSS/Parkpaldesign.css">
 </head>
 <body>
@@ -39,7 +40,7 @@
         </div>
 
         <script>
-           
+            // Translations object for different languages
             const translations = {
                 en: {
                     settings: 'Settings',
@@ -57,6 +58,7 @@
                 }
             };
 
+            // Loads saved settings
             function loadSettings() {
                 const languageSelect = document.getElementById('language');
                 const savedLanguage = localStorage.getItem('language') || 'en';
@@ -69,11 +71,15 @@
                 setDarkMode(savedMode);
             }
 
+            // changes language
+
             function changeLanguage() {
                 const languageSelect = document.getElementById('language');
                 const selectedLanguage = languageSelect.value;
                 translatePage(selectedLanguage);
             }
+
+            //  translates the page based on the  language selected
 
             function translatePage(lang) {
                 const elements = document.querySelectorAll('[data-translate]');
@@ -83,6 +89,7 @@
                 });
             }
 
+            //  saves settings
             function saveSettings() {
                 const languageSelect = document.getElementById('language');
                 localStorage.setItem('language', languageSelect.value);
@@ -90,6 +97,7 @@
                 loadSettings();
             }
 
+            //  toggles dark mode
             function setDarkMode(isDark) {
                 const body = document.body;
                 if (isDark) {
@@ -109,6 +117,7 @@
                 loadSettings();
             });
         </script>
+        <script src="/bootstrap/JS/darkmode.js"></script>
     </div>
 </body>
 

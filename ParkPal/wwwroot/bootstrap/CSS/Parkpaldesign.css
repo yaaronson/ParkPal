@@ -8,12 +8,12 @@
 }
 
 .logo {
-    margin-top: 20px; /* Adjust the margin as needed */
+    margin-top: 20px; 
     text-align: center;
 }
 
     .logo img {
-        max-width: 200px; /* Adjust the size as needed */
+        max-width: 200px; 
     }
 
 .container {
@@ -79,25 +79,25 @@ p a {
     background-color: #f4f4f4;
 }
 
-/* Styles for the logo container */
+
 .login-page-logo {
-    margin-top: 20px; /* Adjust the margin as needed */
+    margin-top: 20px; 
     text-align: center;
 }
 
-    /* Styles for the logo image */
+  
     .login-page-logo img {
-        max-width: 200px; /* Adjust the size as needed */
+        max-width: 200px; 
     }
 
-/* Styles for the container */
+
 .login-page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Styles for the login box */
+
 .login-page-box {
     background-color: #fff;
     border-radius: 10px;
@@ -125,14 +125,14 @@ p a {
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        /* Make the button full width */
+      
         width: 100%;
-        /* Remove left and right padding */
+        
         padding-left: 0;
         padding-right: 0;
-        /* Keep top and bottom padding */
-        padding-top: 10px; /* Adjust as needed */
-        padding-bottom: 10px; /* Adjust as needed */
+        
+        padding-top: 10px; 
+        padding-bottom: 10px; 
     }
 
         .login-page-box button:hover {
@@ -166,8 +166,8 @@ p a {
 }
 
 .booking-item {
-    width: 700%; /* Take full width of its container */
-    max-width: 600px; /* Set maximum width */
+    width: 700%; 
+    max-width: 600px; 
     
     background-color: #ffffff;
     border-radius: 10px;
@@ -186,8 +186,8 @@ p a {
 }
 
 .booking {
-    width: 125%; /* Adjust the width percentage as needed */
-    max-width: 800px; /* Maximum width for each booking */
+    width: 125%;
+    max-width: 800px; 
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 15px;
@@ -258,8 +258,8 @@ p a {
 .listing-form input[type="file"] {
     width: calc(100% - 30px);
     padding: 10px;
-    margin-top: 10px; /* Adjust the top margin */
-    margin-bottom: 15px; /* Adjust the bottom margin */
+    margin-top: 10px; 
+    margin-bottom: 15px; 
     border-radius: 5px;
     border: 1px solid #ccc;
 }
@@ -409,7 +409,7 @@ body.settings-page {
     color: white;
 }
 
-/* Toggle Styles */
+
 .switch {
     position: relative;
     display: inline-block;
