@@ -1,0 +1,502 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+.logo {
+    margin-top: 20px; /* Adjust the margin as needed */
+    text-align: center;
+}
+
+    .logo img {
+        max-width: 200px; /* Adjust the size as needed */
+    }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-box,
+.login-box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 400px;
+    margin: 10px;
+}
+
+    .signup-box input,
+    .login-box input,
+    .signup-box button,
+    .login-box button {
+        display: block;
+        width: calc(100% - 24px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .signup-box button,
+    .login-box button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .signup-box button:hover,
+        .login-box button:hover {
+            background-color: #0056b3;
+        }
+
+p a {
+    color: blue;
+    text-decoration: none;
+}
+
+.message {
+    font-size: 12px;
+    color: red;
+    display: none;
+}
+
+.login-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+/* Styles for the logo container */
+.login-page-logo {
+    margin-top: 20px; /* Adjust the margin as needed */
+    text-align: center;
+}
+
+    /* Styles for the logo image */
+    .login-page-logo img {
+        max-width: 200px; /* Adjust the size as needed */
+    }
+
+/* Styles for the container */
+.login-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styles for the login box */
+.login-page-box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 400px;
+    margin: 10px;
+}
+
+ 
+    .login-page-box input {
+        display: block;
+        width: calc(100% - 24px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+
+    .login-page-box button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        /* Make the button full width */
+        width: 100%;
+        /* Remove left and right padding */
+        padding-left: 0;
+        padding-right: 0;
+        /* Keep top and bottom padding */
+        padding-top: 10px; /* Adjust as needed */
+        padding-bottom: 10px; /* Adjust as needed */
+    }
+
+        .login-page-box button:hover {
+            background-color: #0056b3;
+        }
+
+   
+    .login-page-box p a {
+        color: blue;
+        text-decoration: none;
+    }
+
+    .login-page-box .message {
+        font-size: 12px;
+        color: red;
+        display: none;
+    }
+
+.bookings-page-content {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.booking-management {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.booking-item {
+    width: 700%; /* Take full width of its container */
+    max-width: 600px; /* Set maximum width */
+    
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.booking-title {
+    margin-bottom: 10px;
+}
+
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.booking {
+    width: 125%; /* Adjust the width percentage as needed */
+    max-width: 800px; /* Maximum width for each booking */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+    .booking h3 {
+        margin-top: 0;
+        font-size: 1.2em;
+    }
+
+    .booking p {
+        margin: 5px 0;
+        font-size: 0.9em;
+        color: #666;
+    }
+
+.booking-actions button {
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.modify-btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.cancel-btn {
+    background-color: #F80000;
+    color: #fff;
+}
+.listing-body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.listing-form {
+    width: 60%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.listing-title {
+    text-align: center;
+}
+
+.listing-label {
+    display: block;
+    margin-top: 15px;
+}
+
+.listing-form input[type="text"],
+.listing-form input[type="number"],
+.listing-form textarea,
+.listing-form input[type="date"],
+.listing-form input[type="time"],
+.listing-form input[type="file"] {
+    width: calc(100% - 30px);
+    padding: 10px;
+    margin-top: 10px; /* Adjust the top margin */
+    margin-bottom: 15px; /* Adjust the bottom margin */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+input[type="submit"] {
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+
+
+.listing-file-input {
+    margin-top: 5px;
+}
+
+.listing-map {
+    height: 300px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+body.profile-page {
+    font-family: Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-form-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+    .profile-form-container:hover {
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    }
+
+.profile-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+}
+
+    .profile-form .input-group {
+        margin-bottom: 15px;
+    }
+
+    .profile-form label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .profile-form input[type="text"],
+    .profile-form input[type="email"],
+    .profile-form input[type="tel"],
+    .profile-form input[type="date"],
+    .profile-form textarea,
+    .profile-form button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+        .profile-form input[type="text"]:focus,
+        .profile-form input[type="email"]:focus,
+        .profile-form input[type="tel"]:focus,
+        .profile-form input[type="date"]:focus,
+        .profile-form textarea:focus,
+        .profile-form button[type="submit"]:focus {
+            outline: none;
+            border-color: #5b72ff;
+            box-shadow: 0px 0px 5px 0px rgba(91, 114, 255, 0.5);
+        }
+
+    .profile-form button[type="submit"] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #5b72ff;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .profile-form button[type="submit"]:hover {
+            background-color: #4255cc;
+            transform: scale(1.05);
+        }
+
+        .profile-form button[type="submit"]:focus {
+            outline: none;
+            box-shadow: 0px 0px 5px 0px rgba(91, 114, 255, 0.5);
+        }
+
+body.settings-page {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.settings-container {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.setting-option {
+    margin-bottom: 15px;
+}
+
+.dark-mode {
+    background-color: #222;
+    color: white;
+}
+
+/* Toggle Styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: background-color 0.4s;
+    border-radius: 34px;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: transform 0.4s;
+        border-radius: 50%;
+    }
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+    input:checked + .slider:before {
+        transform: translateX(26px);
+        background-color: #fff;
+    }
+
+.save-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: #2196F3;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 0 auto;
+}
+
+    .save-btn:hover {
+        background-color: #0d8bf2;
+    }
+
+.custom-dropdown {
+    position: relative;
+    width: 150px;
+}
+
+    .custom-dropdown select {
+        width: 100%;
+        padding: 8px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        appearance: none;
+        -webkit-appearance: none;
+        background-color: #f2f2f2;
+        color: #333;
+        cursor: pointer;
+    }
+
+    .custom-dropdown::after {
+        content: "\25BC";
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+

@@ -1,97 +1,27 @@
 ﻿@page "/Login"
+@using ParkPal.Components.Layout
+@layout TopNav
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/bootstrap/CSS/darkmode.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f4f4f4;
-        }
+        <link rel="stylesheet" href="/bootstrap/CSS/darkmode.css" >
+    <link rel="stylesheet" href="/bootstrap/CSS/Parkpaldesign.css">
 
-        .logo {
-            margin-top: 20px; 
-            text-align: center;
-        }
-
-            .logo img {
-                max-width: 200px; 
-            }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 400px; 
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .signup-box,
-        .login-box {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            width: 400px;
-            margin: 10px;
-        }
-
-            .signup-box input,
-            .login-box input,
-            .signup-box button,
-            .login-box button {
-                display: block;
-                width: calc(100% - 24px);
-                padding: 10px;
-                margin-bottom: 10px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-            }
-
-            .signup-box button,
-            .login-box button {
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-
-                .signup-box button:hover,
-                .login-box button:hover {
-                    background-color: #0056b3;
-                }
-
-        p a {
-            color: blue;
-            text-decoration: none;
-        }
-    </style>
 </head>
 
-<body>
-    <div class="logo">
+<body class="login-page">
+ <!--   <div class="login-page-logo">
         <img src="/parkpallogo.png" alt="Logo">
-    </div>
-    <div class="container">
-        <div class="login-box">
+    </div> -->
+    <div class="login-page-container">
+        <div class="login-page-box">
             <h1>Login</h1>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <button onclick="return validateLoginForm()">Login</button>
-            <p>Don't have an account? <a href="#" onclick="redirectToHome()">Sign Up</a></p>
+            <input type="email" class="login-page-email-input" placeholder="Email">
+            <input type="password" class="login-page-password-input" placeholder="Password">
+            <button onclick="return validateLoginForm()" class="login-page-login-button">Login</button>
+            <p>Don't have an account? <a href="#" onclick="redirectToHome()" class="login-page-signup-link">Sign Up</a></p>
         </div>
     </div>
     <script>

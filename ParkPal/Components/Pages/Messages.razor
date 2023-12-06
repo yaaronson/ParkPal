@@ -2,13 +2,13 @@
 @using ParkPal.Components.Layout
 @layout TopNav
 
-
 <head>
     <meta charset="UTF-8">
     <title>Chat Application</title>
     <link rel="stylesheet" href="/bootstrap/CSS/darkmode.css">
+    <!-- some functions were not working in the external stylesheet so had to put  it here-->
     <style>
-       
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -80,7 +80,7 @@
     </div>
 
     <!-- Sends a message to the chat window -->
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const messageInput = document.getElementById('message-input');
@@ -120,7 +120,7 @@
 
             //  Simulates a received message after a delay (when screen first loaded)
 
-           
+
             setTimeout(function () {
                 sendMessage('Hello there!', 'received');
             }, 1500);
@@ -128,4 +128,3 @@
     </script>
     <script src="/bootstrap/JS/darkmode.js"></script>
 </body>
-

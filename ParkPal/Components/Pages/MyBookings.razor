@@ -1,143 +1,50 @@
 ﻿@page "/Bookings"
+@using ParkPal.Components.Layout
+@layout TopNav
 
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
-
     <title>My Bookings</title>
-    <link rel="stylesheet" href="/bootstrap/CSS/darkmode.css"> 
-    <style>
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
-        }
 
-        
-        .header {
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
+        <link rel="stylesheet" href="/bootstrap/CSS/darkmode.css" >
+        <link rel="stylesheet" href="/bootstrap/CSS/Parkpaldesign.css" >
     
-        .main-content {
-            display: flex;
-            justify-content: space-around;
-            padding: 20px;
-        }
-
-        .booking-management,
-        .modify-cancel {
-            width: 45%;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-            .booking-management h2,
-            .modify-cancel h2 {
-                margin-bottom: 10px;
-            }
-
-        .bookings-list {
-            display: grid;
-            gap: 20px;
-        }
-
-        .booking {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 10px;
-            background-color: #f9f9f9;
-        }
-
-            .booking h3 {
-                margin-top: 0;
-                font-size: 1.2em;
-            }
-
-            .booking p {
-                margin: 5px 0;
-                font-size: 0.9em;
-                color: #666;
-            }
-
-        .booking-actions button {
-            border: none;
-            border-radius: 20px;
-            padding: 10px 20px;
-            margin-right: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        .modify-btn {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .cancel-btn {
-            background-color: #F80000;
-            color: #fff;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #ffffff;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-            .footer p {
-                font-size: 0.8em;
-                margin: 0;
-            }
-
-    </style>
 </head>
 <body>
-    <main class="main-content">
+    <main class="bookings-page-content">
         <section class="booking-management">
-            
             <div class="bookings-list">
-                
-                <div class="booking">
-                    <h3>Booking  1</h3>
-                    <p>Location: City 1</p>
-                    <p>Dates: Feb 23 - Feb 28</p>
-                    <p>Status: Confirmed</p>
-                  
-                    <p>Guests: 3</p>
-                    <p>Total Price: $300</p>
-                    <div class="booking-actions">
-                        <button class="modify-btn">Modify</button>
-                        <button class="cancel-btn">Cancel</button>
-                    </div>
-                    </div>
-
-                <div class="booking">
-                    <h3>Booking 2</h3>
-                    <p>Location: City 1</p>
-                    <p>Dates: Feb 23 - Feb 28</p>
-                    <p>Status: Confirmed</p>
-                   
-                    <p>Guests: 3</p>
-                    <p>Total Price: $300</p>
+                <div class="booking-item">
+                    <h3 class="booking-title">Booking 1</h3>
+                    <p class="booking-details">Location: City 1</p>
+                    <p class="booking-details">Car Type: SUV</p>
+                    <p class="booking-details">Dates: Feb 23 - Feb 28</p>
+                    <p class="booking-details">Status: Confirmed</p>
+                    <p class="booking-details">Number of Passengers: 4</p>
+                    <p class="booking-details">Total Price: $500</p>
                     <div class="booking-actions">
                         <button class="modify-btn">Modify</button>
                         <button class="cancel-btn">Cancel</button>
                     </div>
                 </div>
-               
+                <div class="booking-item">
+                    <h3 class="booking-title">Booking 2</h3>
+                    <p class="booking-details">Location: City 2</p>
+                    <p class="booking-details">Car Type: Sedan</p>
+                    <p class="booking-details">Dates: Mar 10 - Mar 15</p>
+                    <p class="booking-details">Status: Confirmed</p>
+                    <p class="booking-details">Number of Passengers: 2</p>
+                    <p class="booking-details">Total Price: $300</p>
+                    <div class="booking-actions">
+                        <button class="modify-btn">Modify</button>
+                        <button class="cancel-btn">Cancel</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
     <script src="/bootstrap/JS/darkmode.js"></script>
-</body> 
+</body>
+</html>
