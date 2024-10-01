@@ -7,7 +7,3 @@ namespace ParkPal.Data
     {
     }
 }
-
-
-
-
